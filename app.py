@@ -33,24 +33,11 @@ def clean_data(df):
     return df
 
 
-def svm_classification(X, y, size):
-    # Veriyi eğitim ve test setlerine ayır
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=size, random_state=42)
-
-    # Destek Vektör Makineleri modelini oluştur
-    model = SVC(kernel='linear', C=1)
-
-    # Modeli eğit
-    model.fit(X_train, y_train)
-
-    # Test seti üzerinde tahmin yap
-    y_pred = model.predict(X_test)
-
-    # Doğruluk (accuracy) değerini hesapla
-    accuracy = accuracy_score(y_test, y_pred)
-
-    return accuracy
+def rf_classification(X_train, y_train, X_test, y_test, quality_types):
+    rfc = RandomForestClassifier()
+    rfc.fit(X_train, y_train)
+    y_pred_rfc = rfc.predict(X_test)
+    print(classification_report(y_test, y_pred_rfc, target_names=quality_types))
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -64,15 +51,13 @@ def home():
         df = pd.read_csv(StringIO(file_contents))
         # Ön işleme işlemlerini gerçekleştir
         df_cleaned = clean_data(df)
-        # Veri setinin özet bilgilerini al
-        data_summary = df_cleaned.describe(include='all').to_html()
         # Veri setinin sütun adlarını al
         column_names = df_cleaned.columns.tolist()
         # Veri setindeki ilk 10 satırı döndür
         selected_data = df_cleaned.head()
-        return render_template('index.html',  data=df_cleaned.head(10).to_html(), summary=data_summary, column_names=column_names, selected_features=None, selected_data=selected_data)
+        return render_template('index.html',  data=df_cleaned.head(10).to_html(),  column_names=column_names, selected_features=None, selected_data=selected_data)
 
-    return render_template('index.html', data=None, summary=None)
+    return render_template('index.html', data=None)
 
 
 @app.route('/train', methods=['POST'])
@@ -83,9 +68,9 @@ def train():
         selected_model = request.form.getlist('model')
         selected_performance = request.form.getlist('traintest')
         f = request.form['selected_data']
-        data = pd.read_csv(f)
+        data = pd.read_csv(StringIO(f))
         print(data.head(10))
-        return render_template('train.html',  selected_features=selected_features, selected_target=selected_target, selected_model=selected_model, selected_performance=selected_performance, selected_data=f)
+        return render_template('train.html',  selected_features=selected_features, selected_target=selected_target, selected_model=selected_model, selected_performance=selected_performance, selected_data=data.head(10))
 
     return render_template('train.html', selected_features=None, selected_target=None, selected_model=None, selected_performance=None)
 
