@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/style.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.css"
+    />
+    <title>{% block title%}{% endblock%}</title>
+  </head>
+  <body>
+    <div class="ui grid container">
+      <div class="row">
+        <div class="sixteen wide column">
+          <form
+            class="ui form segment"
+            action="/"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="two fileds">
+              <div class="field">
+                <div class="ui file input"></div>
+              </div>
+              <div class="ui fluid action huge input">
+                <div class="ui file input">
+                  <input type="file" name="file" accept=".csv" />
+                </div>
+                <button
+                  type="submit"
+                  class="ui icon button"
+                  onclick="loading()"
+                >
+                  <i class="upload large green icon"></i>
+                </button>
+              </div>
+            </div>
+            <br />
+
+            <!--             <div class="field">
+              <div class="ui one column grid">
+                <div class="column" style="overflow-x: scroll">
+                  <div class="ui top attached header">
+                    Okunan Veri - Temizlenmiş Veri
+                  </div>
+                  <div class="ui attached segment">
+                    {% if data %}{{ data | safe }}{% endif %}
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </form>
+          <form
+            class="ui form segment"
+            action="/train"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="two fields">
+              <div class="field">
+                <label>Features Seçin</label>
+                <select
+                  name="features"
+                  class="ui fluid search dropdown"
+                  multiple=""
+                >
+                  <option value="">Features</option>
+                  {% for column in column_names %}
+                  <option value="{{ column }}">{{ column }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="field">
+                <label>Target Seçin</label>
+                <select name="target" class="ui fluid search dropdown">
+                  <option value="">Target</option>
+                  {% for column in column_names %}
+                  <option value="{{ column }}">{{ column }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <br />
+            <div class="two fields">
+              <div class="field">
+                <label>Model Seçin</label>
+                <select class="ui fluid search dropdown" name="model">
+                  <option value="">Models</option>
+                  <option value="SVM">Support Vector Machines - SVM</option>
+                  <option value="DT">Decision Trees</option>
+                  <option value="RF">Random Forests</option>
+                  <option value="LR">Lojistik Regresyon</option>
+                  <option value="KNN">K-Nearest Neighbors - KNN</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Performans Metriği Seçin</label>
+                <select class="ui fluid search dropdown" name="traintest">
+                  <option value="">Performans Metriği</option>
+                  <option value="1">%80 - %20</option>
+                  <option value="2">%70 - %30</option>
+                  <option value="3">K-fold Çapraz Doğrulama</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <button
+                type="submit"
+                class="ui teal fluid button"
+                onclick="loading()"
+                formaction="/train"
+              >
+                Eğitime Başla
+              </button>
+              <input type="file" name="selected_data" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.js"></script>
+    <script>
+      $(".ui.dropdown").dropdown();
+    </script>
+  </body>
+</html>

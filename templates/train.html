@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/style.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.css"
+    />
+    <title>{% block title%}{% endblock%}</title>
+  </head>
+  <body>
+    <div class="ui grid container">
+      <div class="row">
+        <div class="sixteen wide column">{{selected_features | safe}}</div>
+        <div class="sixteen wide column">{{selected_target}}</div>
+        <div class="sixteen wide column">{{selected_model}}</div>
+        <div class="sixteen wide column">{{selected_performance}}</div>
+        <div class="sixteen wide column">{{selected_data | safe}}</div>
+      </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.js"></script>
+    <script>
+      $(".ui.dropdown").dropdown();
+    </script>
+  </body>
+</html>
