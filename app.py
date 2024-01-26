@@ -69,7 +69,7 @@ def home():
         # Veri setinin sütun adlarını al
         column_names = df_cleaned.columns.tolist()
         # Veri setindeki ilk 10 satırı döndür
-        selected_data = file_contents
+        selected_data = df_cleaned.head()
         return render_template('index.html',  data=df_cleaned.head(10).to_html(), summary=data_summary, column_names=column_names, selected_features=None, selected_data=selected_data)
 
     return render_template('index.html', data=None, summary=None)
@@ -82,13 +82,10 @@ def train():
         selected_target = request.form.getlist('target')
         selected_model = request.form.getlist('model')
         selected_performance = request.form.getlist('traintest')
-        # Veri setini yükle
-        f = request.files['selected_data']
-        file_contents = f.read().decode('utf-8')
-        df = pd.read_csv(StringIO(file_contents))
-        # Ön işleme işlemlerini gerçekleştir
-        df_cleaned = clean_data(df)
-        return render_template('train.html',  selected_features=selected_features, selected_target=selected_target, selected_model=selected_model, selected_performance=selected_performance, selected_data=df_cleaned)
+        f = request.form['selected_data']
+        data = pd.read_csv(f)
+        print(data.head(10))
+        return render_template('train.html',  selected_features=selected_features, selected_target=selected_target, selected_model=selected_model, selected_performance=selected_performance, selected_data=f)
 
     return render_template('train.html', selected_features=None, selected_target=None, selected_model=None, selected_performance=None)
 

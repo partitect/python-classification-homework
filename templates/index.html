@@ -115,7 +115,11 @@
               >
                 Eğitime Başla
               </button>
-              <input type="file" name="selected_data" />
+              <input
+                type="hidden"
+                name="selected_data"
+                value="{{selected_data | safe}}"
+              />
             </div>
           </form>
         </div>
