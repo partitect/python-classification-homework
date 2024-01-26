@@ -8,6 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
 
 app = Flask(__name__)
 
@@ -33,7 +34,10 @@ def clean_data(df):
     return df
 
 
-def rf_classification(X_train, y_train, X_test, y_test, quality_types):
+def rf_classification(data, features):
+    X_train, X_test, y_train, y_test = train_test_split(data, features,
+                                                        test_size=0.2, random_state=42)
+    quality_types = ["good", "bad"]
     rfc = RandomForestClassifier()
     rfc.fit(X_train, y_train)
     y_pred_rfc = rfc.predict(X_test)
@@ -69,7 +73,10 @@ def train():
         selected_performance = request.form.getlist('traintest')
         f = request.form['selected_data']
         data = pd.read_csv(StringIO(f))
-        print(data.head(10))
+        print(data[selected_target[0]])
+        # labels_array = data[selected_target[0]].to_numpy()
+        # print(labels_array)
+
         return render_template('train.html',  selected_features=selected_features, selected_target=selected_target, selected_model=selected_model, selected_performance=selected_performance, selected_data=data.head(10))
 
     return render_template('train.html', selected_features=None, selected_target=None, selected_model=None, selected_performance=None)
