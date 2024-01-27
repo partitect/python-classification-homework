@@ -18,7 +18,23 @@
         <div class="sixteen wide column">{{selected_target}}</div>
         <div class="sixteen wide column">{{selected_model}}</div>
         <div class="sixteen wide column">{{selected_performance}}</div>
-        <div class="sixteen wide column">{{selected_data | safe}}</div>
+        <div class="sixteen wide column">
+          <!-- train.html -->
+          {% if accuracy %}
+          <h2>Model Performance</h2>
+          <p>Selected Model: {{ selected_model }}</p>
+          <p>Accuracy: {{ accuracy }}</p>
+          <p>Classification Report:</p>
+          <pre>{{ class_report }}</pre>
+          <p>Confusion Matrix:</p>
+          <pre>{{ conf_matrix }}</pre>
+          {% else %}
+          <p>No results to display.</p>
+          {% endif %} {% if confusion_matrix_url %}
+          <h3>Karışıklık Matrisi</h3>
+          <img src="{{ confusion_matrix_url }}" alt="Confusion Matrix" />
+          {% endif %}
+        </div>
       </div>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
