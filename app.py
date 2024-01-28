@@ -126,7 +126,7 @@ def train():
                 scores = cross_val_score(model, X, y, cv=cv)
                 avg_score = np.mean(scores)
                 # Sonuçları train.html'e gönder
-                return render_template('train.html', cv_scores=scores, avg_score=avg_score, selected_model=selected_model)
+                return render_template('train.html',selected_features=selected_features, selected_target=selected_target, cv_scores=scores, avg_score=avg_score, selected_model=selected_model,selected_performance=selected_test_size)
             else:
                 return "Invalid K-fold value", 400
         else:

@@ -37,13 +37,13 @@
             <pre>{{ class_report }}</pre>
             <p>Confusion Matrix:</p>
             <pre>{{ conf_matrix }}</pre>
-            {% else %}
-            <p>No results to display.</p>
-            {% endif %} {% if confusion_matrix_url %}
-            <h3>Karışıklık Matrisi</h3>
+            {% elif avg_score %}
+            <p>Scores: {{ cv_scores }}</p>
+            <p>AVG Scores: {{ avg_score }}</p>
             {% endif %}
           </div>
         </div>
+        {% if accuracy %}
         <div class="eight wide column">
           <div class="ui segment">
             <img src="{{ conf_matrix_path }}" alt="Confusion Matrix" />
@@ -58,6 +58,7 @@
             />
           </div>
         </div>
+        {% endif %}
       </div>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
