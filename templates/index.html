@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="stretched row">
-        <div class="eleven wide column">
+        <div class="eleven wide column" style="overflow-x: auto">
           <div class="ui top attached header form-header">Veri Seçimi</div>
           <form
             class="ui form attached segment"
@@ -222,6 +222,9 @@
     <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.js"></script>
     <script>
       $(".ui.dropdown").dropdown();
+      function loading() {
+        $(".ui.button").addClass("loading disabled");
+      }
     </script>
   </body>
 </html>

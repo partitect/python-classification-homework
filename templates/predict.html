@@ -12,7 +12,16 @@
     <title>{% block title%}{% endblock%}</title>
   </head>
   <body>
-    <div class="ui grid container">
+    <div class="ui grid">
+      <div class="row">
+        <div class="sixteen wide column">
+          <div class="ui segment header-segment">
+            <img class="logo" src="/static/images/logo.png" alt="logo" />
+            <h1>Tahminleme Sonuçları</h1>
+            <img class="logo" src="/static/images/logo.png" alt="logo" />
+          </div>
+        </div>
+      </div>
       <div class="stretched row">
         <div class="eight wide column">
           <div class="ui segment">
@@ -22,12 +31,12 @@
             <p>Performans Metriği: <b>{{selected_performance | safe}}</b></p>
             {% if mse %}
             <h2>Model Performance</h2>
-            <p>Selected Model: {{ selected_model }}</p>
-            <p>MSE: {{ mse }}</p>
-            <p>R2:</p>
-            <pre>{{ r2 }}</pre>
+            <p>Selected Model:<b> {{ selected_model }}</b></p>
+            <p>MSE:<b> {{ mse }}</b></p>
+            <p>R2: <b>{{ r2 }}</b></p>
+
             <p>YPrediction:</p>
-            <pre>{{ y_pred }}</pre>
+            <b><pre>{{ y_pred }}</pre></b>
             {% else %}
             <p>No results to display.</p>
             {% endif %} {% if confusion_matrix_url %}

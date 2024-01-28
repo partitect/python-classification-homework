@@ -253,7 +253,7 @@ def predict():
         plt.savefig(error_path)
         plt.close()
         # Performans metriklerini ve tahminleri train.html'e gönder
-        return render_template('predict.html', mse=mse, r2=r2, y_pred=y_pred, selected_features=selected_features, selected_target=selected_target, selected_model=selected_model, selected_split_ratio=selected_split_ratio, scatter_path=scatter_path, error_path=error_path)
+        return render_template('predict.html', mse=mse, r2=r2, y_pred=y_pred, selected_features=selected_features, selected_target=selected_target, selected_model=selected_model,selected_performance=test_size , selected_split_ratio=selected_split_ratio, scatter_path=scatter_path, error_path=error_path)
 
     return render_template('predict.html', selected_features=None, selected_target=None, selected_model=None, selected_performance=None)
 
