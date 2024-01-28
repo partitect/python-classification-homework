@@ -8,7 +8,24 @@ body {
   color: rgba(255, 255, 255, 0.75);
   font-family: "Anonymous Pro", monospace;
   background: #efeff5;
+  padding: 3em !important;
+}
+.form-header {
+  max-height: 50px;
+}
+.ui.segment img {
+  width: 100%;
+}
+.header-segment {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 5px;
+  padding: 1em;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+.header-segment img {
+  width: 100px !important;
+  height: 100px;
 }

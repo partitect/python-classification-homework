@@ -20,14 +20,14 @@
             <p>Seçilen Hedef: <b>{{selected_target | safe}}</b></p>
             <p>Seçilen Model: <b>{{selected_model | safe}}</b></p>
             <p>Performans Metriği: <b>{{selected_performance | safe}}</b></p>
-            {% if accuracy %}
+            {% if mse %}
             <h2>Model Performance</h2>
             <p>Selected Model: {{ selected_model }}</p>
-            <p>Accuracy: {{ accuracy }}</p>
-            <p>Classification Report:</p>
-            <pre>{{ class_report }}</pre>
-            <p>Confusion Matrix:</p>
-            <pre>{{ conf_matrix }}</pre>
+            <p>MSE: {{ mse }}</p>
+            <p>R2:</p>
+            <pre>{{ r2 }}</pre>
+            <p>YPrediction:</p>
+            <pre>{{ y_pred }}</pre>
             {% else %}
             <p>No results to display.</p>
             {% endif %} {% if confusion_matrix_url %}
@@ -37,16 +37,10 @@
         </div>
         <div class="eight wide column">
           <div class="ui segment">
-            <img src="{{ conf_matrix_path }}" alt="Confusion Matrix" />
+            <img src="{{ scatter_path }}" alt="Confusion Matrix" />
           </div>
           <div class="ui segment">
-            <img src="{{ accuracy_path }}" alt="Confusion Matrix" />
-          </div>
-          <div class="ui segment">
-            <img
-              src="{{ class_report_precision_path }}"
-              alt="Confusion Matrix"
-            />
+            <img src="{{ error_path }}" alt="Confusion Matrix" />
           </div>
         </div>
       </div>
